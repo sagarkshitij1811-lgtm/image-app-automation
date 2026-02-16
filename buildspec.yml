@@ -1,0 +1,11 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.12
+  build:
+    commands:
+      - sam package --output-template-file packaged.yaml --s3-bucket YOUR_S3_BUCKET_NAME
+artifacts:
+  files:
+    - packaged.yaml
