@@ -6,7 +6,7 @@ Resources:
   UploadsNotificationFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: app.handler             # Ensure this matches your python filename and function name
+      Handler: app.lambda_handler             # Ensure this matches your python filename and function name
       Runtime: python3.9               # Ensure this matches your code
       CodeUri: ./
       MemorySize: 128
