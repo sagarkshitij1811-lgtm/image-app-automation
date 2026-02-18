@@ -20,7 +20,7 @@ Resources:
         MySQSEvent:
           Type: SQS
           Properties:
-            Queue: "arn:aws:sns:us-east-1:760659115700:ImageApp-UploadsNotificationTopic" # <--- PASTE YOUR MODULE 9 SQS ARN HERE
+            Queue: "arn:aws:sqs:us-east-1:760659115700:ImageApp-UploadsNotificationQueue" # <--- PASTE YOUR MODULE 9 SQS ARN HERE
             BatchSize: 10
 
 # Note: If your SQS queue exists from a different module, just pasting the ARN above is enough.
