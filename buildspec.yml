@@ -5,10 +5,8 @@ phases:
       python: 3.9
   build:
     commands:
-      - echo "Starting SAM build..."
-      - sam build
-      - echo "Packaging SAM application..."
-      - sam package --output-template-file packaged.yaml --s3-bucket YOUR_ARTIFACT_BUCKET_NAME
+      - echo "Starting SAM packaging..."
+      - sam package --output-template-file packaged.yaml --s3-bucket full-stack-app-imagebucket-gz8rufxy6coo
 artifacts:
   files:
     - packaged.yaml
