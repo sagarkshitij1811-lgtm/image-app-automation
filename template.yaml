@@ -6,21 +6,24 @@ Resources:
   UploadsNotificationFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: app.lambda_handler             # Ensure this matches your python filename and function name
-      Runtime: python3.9               # Ensure this matches your code
+      Handler: app.lambda_handler
+      Runtime: python3.9
       CodeUri: ./
       MemorySize: 128
       Timeout: 30
       Policies:
-        - AWSLambdaBasicExecutionRole  # Permission for CloudWatch Logs
-        - SQSPollerPolicy:             # Permission to read from your SQS Queue
-            QueueName: !GetAtt MySQSQueue.QueueName # OR use the QueueArn directly in the policy below if defining queue externally
+        - AWSLambdaBasicExecutionRole
+        # Fixed Policy: We use the actual Queue Name string instead of !GetAtt
+        - SQSPollerPolicy:
+            QueueName: "ImageApp-UploadsNotificationQueue"
+        # Added SNS Publish permission so the Lambda can send emails
+        - SNSPublishMessagePolicy:
+            TopicName: "ImageApp-UploadsNotificationTopic"
 
       Events:
         MySQSEvent:
           Type: SQS
           Properties:
-            Queue: "arn:aws:sqs:us-east-1:760659115700:ImageApp-UploadsNotificationQueue" # <--- PASTE YOUR MODULE 9 SQS ARN HERE
+            # This ARN is correct as a string
+            Queue: "arn:aws:sqs:us-east-1:760659115700:ImageApp-UploadsNotificationQueue"
             BatchSize: 10
-
-# Note: If your SQS queue exists from a different module, just pasting the ARN above is enough.
